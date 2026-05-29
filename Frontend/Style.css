@@ -1,0 +1,23 @@
+body {
+    font-family: Arial;
+    margin: 40px;
+}
+
+h1 {
+    color: #0b5394;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #0b5394;
+    color: white;
+}
+
+th, td {
+    padding: 10px;
+}

@@ -1,0 +1,6 @@
+{
+    "python.defaultInterpreterPath": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_25.2.240.0_x64__3847v3x7pw1km\\python.exe",
+    "python.terminal.activateEnvInSelectedTerminal": true,
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "python.languageServer": "Pylance"
+}

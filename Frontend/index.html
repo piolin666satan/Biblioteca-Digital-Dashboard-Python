@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Alquimia Literaria</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f6f9; color: #333; }
+        header { background-color: #0b5394; color: white; padding: 20px 40px; text-align: center; }
+        main { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .grid-kpis { display: flex; gap: 20px; margin-bottom: 30px; }
+        .kpi-card { flex: 1; background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 5px solid #3d85c6; }
+        .kpi-card h3 { margin: 0; font-size: 14px; color: #718096; text-transform: uppercase; }
+        .kpi-card p { margin: 10px 0 0 0; font-size: 28px; font-weight: bold; color: #2d3748; }
+        .controles { background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; gap: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .controles input, .controles select { padding: 10px; border: 1px solid #cbd5e0; border-radius: 4px; font-size: 14px; flex: 1; }
+        .grid-graficos { display: flex; gap: 20px; margin-bottom: 30px; }
+        .grafico-contenedor { flex: 1; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); min-height: 400px; }
+        .tabla-contenedor { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); max-height: 500px; overflow-y: auto; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+        th { background-color: #0b5394; color: white; font-weight: bold; position: sticky; top: 0; cursor: pointer; }
+        tr:hover { background-color: #f7fafc; }
+        .rating { color: #f6ad55; font-weight: bold; }
+    </style>
+    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Panel Analítico - Alquimia Literaria</h1>
+        <p>Inventario General, Estadísticas y Disponibilidad de Títulos</p>
+    </header>
+
+    <main>
+        <section class="grid-kpis">
+            <div class="kpi-card">
+                <h3>Total de Títulos</h3>
+                <p id="kpi-titulos">0</p>
+            </div>
+            <div class="kpi-card">
+                <h3>Stock Total Global</h3>
+                <p id="kpi-stock">0</p>
+            </div>
+            <div class="kpi-card">
+                <h3>Calificación Promedio</h3>
+                <p id="kpi-promedio">0.0</p>
+            </div>
+        </section>
+
+        <section class="controles">
+            <input type="text" id="buscador" placeholder="🔍 Buscar por título o autor...">
+            <select id="filtro-categoria">
+                <option value="TODAS">📚 Todas las Categorías</option>
+                </select>
+        </section>
+
+        <section class="grid-graficos">
+            <div class="grafico-contenedor" id="grafico-barras"></div>
+            <div class="grafico-contenedor" id="grafico-torta"></div>
+        </section>
+
+        <section class="tabla-contenedor">
+            <h2>Inventario Detallado</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th id="th-titulo">Título</th>
+                        <th id="th-autor">Autor</th>
+                        <th id="th-categoria">Categoría</th>
+                        <th id="th-calificacion">Calificación</th>
+                        <th id="th-stock">Stock</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo-tabla">
+                    </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
