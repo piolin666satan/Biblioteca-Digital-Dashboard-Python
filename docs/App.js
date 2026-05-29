@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const cuerpoTabla = document.getElementById('cuerpo-tabla');
     const inputBuscador = document.getElementById('buscador');
     const selectCategoria = document.getElementById('filtro-categoria');
+
+    const selectAnalitico = document.getElementById('filtro-analitico');
+    selectAnalitico.addEventListener('change', filtrarYProcesar);
     
     // 2. LECTURA DEL JSON GENERADO POR PYTHON
     fetch(jsonPath)
@@ -43,23 +46,41 @@ document.addEventListener('DOMContentLoaded', () => {
     inputBuscador.addEventListener('input', filtrarYProcesar);
     selectCategoria.addEventListener('change', filtrarYProcesar);
 
-    function filtrarYProcesar() {
-        const busqueda = inputBuscador.value.toLowerCase().trim();
-        const categoriaSeleccionada = selectCategoria.value;
+function filtrarYProcesar() {
+    const busqueda = inputBuscador.value.toLowerCase().trim();
+    const categoriaSeleccionada = selectCategoria.value;
+    const vistaAnalitica = selectAnalitico.value; // Nueva lógica
 
-        let datosFiltrados = datosGlobales.filter(item => {
-            const titulo = item.titulo ? item.titulo.toLowerCase() : "";
-            const autor = item.autor ? item.autor.toLowerCase() : "";
-            
-            const coincideBusqueda = titulo.includes(busqueda) || autor.includes(busqueda);
-            const coincideCategoria = categoriaSeleccionada === "TODAS" || item.categoria === categoriaSeleccionada;
+    let datosFiltrados = datosGlobales.filter(item => {
+        const titulo = item.titulo ? item.titulo.toLowerCase() : "";
+        const autor = item.autor ? item.autor.toLowerCase() : "";
+        
+        const coincideBusqueda = titulo.includes(busqueda) || autor.includes(busqueda);
+        const coincideCategoria = categoriaSeleccionada === "TODAS" || item.categoria === categoriaSeleccionada;
 
-            return coincideBusqueda && coincideCategoria;
-        });
+        return coincideBusqueda && coincideCategoria;
+    });
 
+    // Lógica para vistas especiales
+    if (vistaAnalitica === 'TOP_RATING') {
+        datosFiltrados = datosFiltrados.filter(item => item.calificacion_usuarios > 4.0);
+    } else if (vistaAnalitica === 'MAX_STOCK') {
+        // Ordenamos por stock descendente y tomamos los primeros 20
+        datosFiltrados.sort((a, b) => b.stock_disponible - a.stock_disponible);
+        datosFiltrados = datosFiltrados.slice(0, 20);
+    } else if (vistaAnalitica === 'PREDOMINANTE') {
+        // Encontrar la categoría que más libros tiene
+        const conteo = {};
+        datosFiltrados.forEach(item => conteo[item.categoria] = (conteo[item.categoria] || 0) + 1);
+        const categoriaTop = Object.keys(conteo).reduce((a, b) => conteo[a] > conteo[b] ? a : b);
+        datosFiltrados = datosFiltrados.filter(item => item.categoria === categoriaTop);
+    } else {
+        // Ordenamiento normal
         datosFiltrados = aplicarOrdenamiento(datosFiltrados);
-        actualizarDashboard(datosFiltrados);
     }
+
+    actualizarDashboard(datosFiltrados);
+}
 
     // 4. ORDENAMIENTO EN TABLA
     document.getElementById('th-titulo').addEventListener('click', () => ejecutarOrdenamiento('titulo'));

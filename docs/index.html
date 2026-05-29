@@ -48,12 +48,18 @@
             </div>
         </section>
 
-        <section class="controles">
-            <input type="text" id="buscador" placeholder="🔍 Buscar por título o autor...">
-            <select id="filtro-categoria">
-                <option value="TODAS">📚 Todas las Categorías principales</option>
-                </select>
-        </section>
+<section class="controles">
+    <input type="text" id="buscador" placeholder="🔍 Buscar por título o autor...">
+    <select id="filtro-categoria">
+        <option value="TODAS"> Todas las Categorías</option>
+    </select>
+    <select id="filtro-analitico">
+        <option value="NORMAL">Vista: Inventario Completo</option>
+        <option value="TOP_RATING"> Mejores Calificados (>4.0)</option>
+        <option value="MAX_STOCK"> Mayor Stock Disponible</option>
+        <option value="PREDOMINANTE"> Categoría con más títulos</option>
+    </select>
+</section>
 
         <section class="grid-graficos">
             <div class="grafico-contenedor" id="grafico-barras"></div>
