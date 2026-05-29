@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // 1. CONFIGURACIÓN
     // Asegúrate de que este nombre coincida con el que generaste en exportar.py
-    const jsonPath = 'alquimia_literaria.json'; 
+    const jsonPath = './alquimia_literaria.json'; 
     let datosGlobales = []; 
     let ordenAscendente = true;
     let columnaActual = 'titulo';
